@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+    - "0.11"
+    - "0.10"
+    - "0.8"
+    - "0.6"
+    - iojs
+
+before_install:
+
+services:
+    - travis
+
+matrix:
+    allow_failures:
+        - node_js: "0.8"
+        - node_js: "0.6"
+
+after_script:
+    - npm install blanket
+    - npm install coveralls
+    - npm install mocha-lcov-reporter
+    - npm install grunt-coveralls
+    - npm run coveralls
