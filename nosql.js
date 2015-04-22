@@ -1,7 +1,9 @@
 'use strict';
-// nosql - a memory or Redis based key-value store
+// nosql - static API for RAM, SSC, or Redis key-value store
+
+if (process.env.NOSQL_COVERAGE) require('blanket');
+
 var path    = require('path');
-var cluster = require('cluster');
 
 function NoSQL (collection, options, done) {
     this.collection = collection || 'default';
@@ -202,7 +204,7 @@ NoSQL.prototype.redis_connect = function (done) {
     });
 
     nosql.redis.on('connect', function () {
-        console.log('redis connected');
+        // console.log('redis connected');
         if (nosql.cfg.redis.dbid) {
             console.log('redis db ' + nosql.cfg.redis.dbid + ' selected');
             nosql.redis.select(nosql.cfg.redis.dbid);

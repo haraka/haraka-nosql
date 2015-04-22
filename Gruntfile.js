@@ -25,6 +25,7 @@ module.exports = function(grunt) {
             }
         },
         clean: {
+            cruft: ['dump.rdb', 'npm-debug.log'],
             dist: [ 'node_modules' ]
         },
         coveralls: {
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
               src: 'coverage-results/lcov.info',
               force: true
             },
-            your_target: {
+            nosql: {
               // Target-specific LCOV coverage file
               src: 'coverage-results/extra-results-*.info'
             },
