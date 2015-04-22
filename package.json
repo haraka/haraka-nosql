@@ -34,15 +34,15 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-coveralls": "^1.0.0",
     "grunt-mocha-test": "^0.12.7",
+    "grunt-version-check": "^0.2.1",
     "jshint": "^2.6.0",
     "mocha": "^2.1.0"
   },
   "license": "MIT",
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "optionalDependencies": {
     "redis": "^0.12.1",
     "strong-store-cluster": "^0.1.3"
