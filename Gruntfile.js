@@ -13,7 +13,7 @@ module.exports = function(grunt) {
             options: {
                 jshintrc: true,
             },
-            nosql: [ 'nosql.js' ],
+            nosql: [ 'index.js' ],
             test: [ 'test/**/*.js' ],
             all: [ '<%= jshint.nosql %>', '<%= jshint.test %>' ],
         },

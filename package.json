@@ -6,7 +6,7 @@
     "name": "Matt Simerson",
     "url": "https://github.com/haraka"
   },
-  "main": "nosql/index.js",
+  "main": "index.js",
   "homepage": "https://github.com/haraka/nosql",
   "keywords": [
     "email",
@@ -20,7 +20,7 @@
   },
   "config": {
     "blanket": {
-      "pattern": "nosql/index.js"
+      "pattern": "index.js"
     }
   },
   "scripts": {

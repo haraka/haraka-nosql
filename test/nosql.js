@@ -2,7 +2,7 @@
 
 var assert  = require('assert');
 
-var NoSQL  = require('../nosql');
+var NoSQL  = require('../');
 var nosql;
 
 var setup = {

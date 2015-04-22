@@ -12,12 +12,19 @@ function NoSQL (collection, options, done) {
     // ram, ssc (strong store cluster), redis
     this.store      = options.store   || 'ram';
     this.default_cb = options.done    || function (ignore) {};
-    this.expire     = parseFloat(options.expire) || 10;  // minutes
+    this.expire     = 10 * 60;  // convert minutes to seconds
     this.ramCache   = {};
     this.cfg        = {};
 
+    if (options.expire !== undefined) {
+        this.expire = parseFloat(options.expire) * 60; // min to sec
+    }
+
     switch (this.store) {
         case 'ram':
+            if (this.expire) {
+                this._interval = setInterval(this._reset, this.expire * 1000);
+            }
             if (done) done();
             break;
 
@@ -25,9 +32,9 @@ function NoSQL (collection, options, done) {
             try {
                 this.ssc = require('strong-store-cluster')
                                 .collection(this.collection);
-                this.ssc.configure({
-                    expireKeys: this.expire * 60,
-                });
+                if (this.expire) {
+                    this.ssc.configure({ expireKeys: this.expire });
+                }
                 if (done) done(null, 1);
             }
             catch (e) {
@@ -45,6 +52,9 @@ function NoSQL (collection, options, done) {
                 port: 6379,
                 dbid: 0,
             };
+            if (this.expire) {
+                this._interval = setInterval(this._reset, this.expire * 1000);
+            }
             this.redis_connect(done || this.default_cb);
             break;
     }
@@ -178,6 +188,11 @@ NoSQL.prototype.reset = function (done) {
         case 'redis':
             this.redis.del(this.collection, done);
     }
+};
+
+NoSQL.prototype._reset = function () {
+    console.log('clearing ' + this.store);
+    this.reset();
 };
 
 // Redis DB functions
