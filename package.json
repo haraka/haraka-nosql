@@ -1,6 +1,6 @@
 {
   "name": "haraka-nosql",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Unified NoSQL API for RAM, SSC, or Redis",
   "author": {
     "name": "Matt Simerson",
