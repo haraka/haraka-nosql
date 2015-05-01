@@ -23,7 +23,7 @@ function NoSQL (collection, options, done) {
     switch (this.store) {
         case 'ram':
             if (this.expire) {
-                this._interval = setInterval(this._reset, this.expire * 1000);
+                this._interval = setInterval(this.reset, this.expire * 1000);
             }
             if (done) done();
             break;
@@ -53,7 +53,7 @@ function NoSQL (collection, options, done) {
                 dbid: 0,
             };
             if (this.expire) {
-                this._interval = setInterval(this._reset, this.expire * 1000);
+                this._interval = setInterval(this.reset, this.expire * 1000);
             }
             this.redis_connect(done || this.default_cb);
             break;
@@ -173,6 +173,7 @@ NoSQL.prototype.incrby = function (key, incr, done) {
 
 NoSQL.prototype.reset = function (done) {
     if (!done) done = this.default_cb;
+    console.log('clearing ' + this.store);
 
     switch (this.store) {
         case 'ram':
@@ -187,12 +188,8 @@ NoSQL.prototype.reset = function (done) {
 
         case 'redis':
             this.redis.del(this.collection, done);
+            break;
     }
-};
-
-NoSQL.prototype._reset = function () {
-    console.log('clearing ' + this.store);
-    this.reset();
 };
 
 // Redis DB functions
