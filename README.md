@@ -8,7 +8,7 @@ Store stuff in memory-backed objects, smartly.
 
 ## Usage
 
-    var NoSQL = require('nosql');
+    var NoSQL = require('haraka-nosql');
     var nosql = new NoSQL('myindex', {
         storage: 'redis',  // or 'ram' or 'ssc'
         expire: 10,        // minutes
@@ -113,7 +113,7 @@ Edit the settings in the [redis] section.
 
 When Redis is configured, the redis connection is exported as `nosql.redis`. Use it like so:
 
-    var nosql = require('nosql');
+    var nosql = require('haraka-nosql');
     var redis = nosql.redis;
 
     redis.multi()
