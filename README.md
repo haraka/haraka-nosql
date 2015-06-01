@@ -8,7 +8,11 @@ Store stuff in memory-backed objects, smartly.
 
 ## Usage
 
-    var nosql = require('nosql');
+    var NoSQL = require('nosql');
+    var nosql = new NoSQL('myindex', {
+        storage: 'redis',  // or 'ram' or 'ssc'
+        expire: 10,        // minutes
+    });
 
 Exports the following functions:
 

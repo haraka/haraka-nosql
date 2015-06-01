@@ -1,13 +1,13 @@
 {
   "name": "haraka-nosql",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Unified NoSQL API for RAM, SSC, or Redis",
   "author": {
     "name": "Matt Simerson",
-    "url": "https://github.com/haraka"
+    "url": "https://github.com/haraka/haraka-nosql"
   },
   "main": "index.js",
-  "homepage": "https://github.com/haraka/nosql",
+  "homepage": "https://github.com/haraka/haraka-nosql",
   "keywords": [
     "email",
     "mail",
@@ -16,7 +16,7 @@
     "strong store cluster"
   ],
   "bugs": {
-    "url": "https://github.com/haraka/nosql/issues"
+    "url": "https://github.com/haraka/haraka-nosql/issues"
   },
   "config": {
     "blanket": {
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/haraka/nosql.git"
+    "url": "https://github.com/haraka/haraka-nosql.git"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
