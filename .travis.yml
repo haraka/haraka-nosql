@@ -1,18 +1,26 @@
 language: node_js
 node_js:
-    - "0.11"
+    - "0.12"
     - "0.10"
-#   - "0.8"    - no grunt support
-    - iojs
+#   - "0.8"     - no grunt support
+    - "stable"
+    - "iojs-v3"
 
 before_install:
 
 services:
     - travis
 
-matrix:
-    allow_failures:
-        - node_js: "0.8"
+# these are required for building on node.js 4.0 / io.js v3
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+env:
+  - "CXX=g++-4.8"
+# end: these are required for building on node.js 4.0 / io.js v3
 
 after_script:
     - npm install blanket
