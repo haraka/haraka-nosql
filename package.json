@@ -44,7 +44,7 @@
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^1.0.0",
+    "redis": "^2.0.1",
     "strong-store-cluster": "^1.0.0"
   }
 }
