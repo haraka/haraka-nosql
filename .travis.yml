@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-#   - "0.8"     - no grunt support
+#   - "0.8"
 #   - "0.10"
 #   - "0.12"
     - "4"
@@ -10,6 +10,7 @@ before_install:
 
 services:
     - travis
+    - redis-server
 
 # these are required for building on node.js 4
 addons:
@@ -27,5 +28,5 @@ script:
   - npm test
 
 after_script:
-  - npm install blanket coveralls mocha-lcov-reporter grunt-coveralls
-  - npm run coveralls
+  - npm install blanket coveralls mocha-lcov-reporter
+  - npm run cover

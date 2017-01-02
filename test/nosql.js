@@ -134,7 +134,7 @@ var setup = {
                         nosql.get('foo', function (err3, res3) {
                             // console.log(arguments);
                             assert.ifError(err3);
-                            assert.equal(res2, null);
+                            assert.equal(res3, null);
                             done();
                         });
                     });
