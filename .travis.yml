@@ -1,17 +1,17 @@
 language: node_js
 node_js:
-    - "0.12"
-    - "0.10"
 #   - "0.8"     - no grunt support
-    - "stable"
-    - "iojs-v3"
+#   - "0.10"
+#   - "0.12"
+    - "4"
+    - "6"
 
 before_install:
 
 services:
     - travis
 
-# these are required for building on node.js 4.0 / io.js v3
+# these are required for building on node.js 4
 addons:
   apt:
     sources:
@@ -20,11 +20,12 @@ addons:
       - g++-4.8
 env:
   - "CXX=g++-4.8"
-# end: these are required for building on node.js 4.0 / io.js v3
+# end: these are required for building on node.js 4
+
+script:
+  - npm run lint
+  - npm test
 
 after_script:
-    - npm install blanket
-    - npm install coveralls
-    - npm install mocha-lcov-reporter
-    - npm install grunt-coveralls
-    - npm run coveralls
+  - npm install blanket coveralls mocha-lcov-reporter grunt-coveralls
+  - npm run coveralls

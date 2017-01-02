@@ -45,9 +45,9 @@ var setup = {
                 assert.ifError(err);
                 assert.ok(result < 2);
 
-                nosql.get('foo', function (err, result) {
-                    assert.ifError(err);
-                    assert.equal(result, 'bar');
+                nosql.get('foo', function (err2, result2) {
+                    assert.ifError(err2);
+                    assert.equal(result2, 'bar');
                     done();
                 });
             });
@@ -66,9 +66,9 @@ var setup = {
             nosql.del('foo', function (err, result) {
                 assert.ifError(err);
 
-                nosql.get('foo', function (err, result) {
-                    assert.ifError(err);
-                    assert.equal(result, null);
+                nosql.get('foo', function (err2, result2) {
+                    assert.ifError(err2);
+                    assert.equal(result2, null);
                     done();
                 });
             });
@@ -87,12 +87,12 @@ var setup = {
             nosql.set('foo', 1, function (err, res1) {
                 assert.ifError(err);
 
-                nosql.incrby('foo', 2, function (err, res2) {
-                    assert.ifError(err);
+                nosql.incrby('foo', 2, function (err2, res2) {
+                    assert.ifError(err2);
                     assert.equal(res2, 3);
-                    
-                    nosql.incrby('foo', 4, function (err, res3) {
-                        assert.ifError(err);
+
+                    nosql.incrby('foo', 4, function (err3, res3) {
+                        assert.ifError(err3);
                         assert.equal(res3, 7);
                         done();
                     });
@@ -104,12 +104,12 @@ var setup = {
             nosql.set('foo', 1, function (err) {
                 assert.ifError(err);
 
-                nosql.incrby('foo', -1, function (err, res1) {
-                    assert.ifError(err);
+                nosql.incrby('foo', -1, function (err2, res1) {
+                    assert.ifError(err2);
                     assert.equal(res1, 0);
 
-                    nosql.incrby('foo', -2, function (err, res2) {
-                        assert.ifError(err);
+                    nosql.incrby('foo', -2, function (err3, res2) {
+                        assert.ifError(err3);
                         assert.equal(res2, -2);
                         done();
                     });
@@ -130,10 +130,10 @@ var setup = {
             // Strong Store Cluster doesn't have a reset option
             it('get is empty after reset', function (done) {
                 nosql.set('foo', 'bar', function (err, res1) {
-                    nosql.reset(function (err, res1) {
-                        nosql.get('foo', function (err, res2) {
+                    nosql.reset(function (err2, res2) {
+                        nosql.get('foo', function (err3, res3) {
                             // console.log(arguments);
-                            assert.ifError(err);
+                            assert.ifError(err3);
                             assert.equal(res2, null);
                             done();
                         });

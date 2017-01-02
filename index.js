@@ -3,8 +3,6 @@
 
 if (process.env.NOSQL_COVERAGE) require('blanket');
 
-var path    = require('path');
-
 function NoSQL (collection, options, done) {
     this.collection = collection || 'default';
     if (!options) options = {};
@@ -100,14 +98,14 @@ NoSQL.prototype.set = function (key, val, done) {
                 if (err) { console.error(err); }
                 keylock.set(newVal);
                 keylock.release();
-                done(err, oldVal ? 0 : 1);   
+                done(err, oldVal ? 0 : 1);
             });
             break;
 
         case 'redis':
             this.redis.hset(this.collection, key, val, done);
             break;
-    }    
+    }
 };
 
 NoSQL.prototype.del = function (key, done) {
@@ -119,7 +117,7 @@ NoSQL.prototype.del = function (key, done) {
             done(null, 1);
             break;
 
-        case 'ssc':    
+        case 'ssc':
             this.ssc.acquire(key, function (err, keylock, val) {
                 if (err) { console.error(err); }
                 keylock.del();
@@ -150,25 +148,25 @@ NoSQL.prototype.incrby = function (key, incr, done) {
 
         case 'ssc':
             if (isNaN(incr)) incr = 1;
-                this.ssc.acquire(key, function (err, keylock, oldVal) {
-                    if (err) { console.error(err); }
-                    if (!oldVal) {
-                        oldVal = 0;
-                    }
-                    else {
-                        oldVal = parseFloat(oldVal);
-                        if (isNaN(oldVal)) oldVal = 0;
-                    }
-                    keylock.set(oldVal + incr);
-                    keylock.release();
-                    done(err, oldVal + incr);
-                });
+            this.ssc.acquire(key, function (err, keylock, oldVal) {
+                if (err) { console.error(err); }
+                if (!oldVal) {
+                    oldVal = 0;
+                }
+                else {
+                    oldVal = parseFloat(oldVal);
+                    if (isNaN(oldVal)) oldVal = 0;
+                }
+                keylock.set(oldVal + incr);
+                keylock.release();
+                done(err, oldVal + incr);
+            });
             break;
 
         case 'redis':
             this.redis.hincrby(this.collection, key, incr, done);
             break;
-    }   
+    }
 };
 
 NoSQL.prototype.reset = function (done) {
