@@ -1,5 +1,7 @@
 # haraka-nosql
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/haraka-nosql.svg)](https://greenkeeper.io/)
+
 [![Build Status][ci-img]][ci-url]
 [![Dependencies][dep-img]][dep-url]
 [![Coverage Status][cov-img]][cov-url]
