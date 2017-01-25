@@ -1,10 +1,9 @@
 # haraka-nosql
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/haraka-nosql.svg)](https://greenkeeper.io/)
-
 [![Build Status][ci-img]][ci-url]
 [![Dependencies][dep-img]][dep-url]
 [![Coverage Status][cov-img]][cov-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/haraka-nosql.svg)](https://greenkeeper.io/)
 
 Store stuff in memory-backed objects, smartly.
 
