@@ -29,7 +29,7 @@ function NoSQL (collection, options, done) {
         case 'ssc':    // Strong-Store-Cluster
             try {
                 this.ssc = require('strong-store-cluster')
-                                .collection(this.collection);
+                    .collection(this.collection);
                 if (this.expire) {
                     this.ssc.configure({ expireKeys: this.expire });
                 }
@@ -224,7 +224,7 @@ NoSQL.prototype.redis_connect = function (done) {
     });
 };
 
-NoSQL.prototype.redis_ping = function(done) {
+NoSQL.prototype.redis_ping = function (done) {
     var nosql = this;
 
     var nope = function (err) {
