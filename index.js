@@ -84,16 +84,16 @@ NoSQL.prototype.set = function (key, val, done) {
     if (!done) done = this.default_cb;
 
     switch (this.store) {
-        case 'ram':
+        case 'ram': {
             // mimic redis result
-            var was_set = this.ramCache[key] ? 0 : 1;
+            const was_set = this.ramCache[key] ? 0 : 1;
             this.ramCache[key] = val;
             done(null, was_set);
             break;
-
-        case 'ssc':
+        }
+        case 'ssc': {
             // SSC saves JSON serialized, so put val into an object
-            var newVal = val;
+            const newVal = val;
             this.ssc.acquire(key, function (err, keylock, oldVal) {
                 if (err) { console.error(err); }
                 keylock.set(newVal);
@@ -101,7 +101,7 @@ NoSQL.prototype.set = function (key, val, done) {
                 done(err, oldVal ? 0 : 1);
             });
             break;
-
+        }
         case 'redis':
             this.redis.hset(this.collection, key, val, done);
             break;
@@ -138,14 +138,14 @@ NoSQL.prototype.incrby = function (key, incr, done) {
     incr = parseFloat(incr);
 
     switch (this.store) {
-        case 'ram':
+        case 'ram': {
             if (isNaN(incr)) incr = 1;
-            var val = parseFloat(this.ramCache[key]) || 0;
+            let val = parseFloat(this.ramCache[key]) || 0;
             if (isNaN(val)) val = 0;
             this.ramCache[key] = parseFloat(val) + incr;
             done(null, this.ramCache[key]);
             break;
-
+        }
         case 'ssc':
             if (isNaN(incr)) incr = 1;
             this.ssc.acquire(key, function (err, keylock, oldVal) {
@@ -192,8 +192,8 @@ NoSQL.prototype.reset = function (done) {
 
 // Redis DB functions
 NoSQL.prototype.redis_connect = function (done) {
-    var nosql = this;
-    var ranDone = 0;
+    const nosql = this;
+    let ranDone = 0;
 
     if (nosql.redis && nosql.redis_pings) {
         console.log('redis already connected');
@@ -201,7 +201,7 @@ NoSQL.prototype.redis_connect = function (done) {
         return;
     }
 
-    var redis  = require('redis');   // npm module
+    const redis  = require('redis');   // npm module
 
     nosql.redis = redis.createClient(
         nosql.cfg.redis.port || 6379,
@@ -225,9 +225,9 @@ NoSQL.prototype.redis_connect = function (done) {
 };
 
 NoSQL.prototype.redis_ping = function (done) {
-    var nosql = this;
+    const nosql = this;
 
-    var nope = function (err) {
+    const nope = function (err) {
         nosql.redis_pings=false;
         done(err, false);
     };

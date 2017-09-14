@@ -1,11 +1,11 @@
 'use strict';
 
-var assert  = require('assert');
+const assert  = require('assert');
 
-var NoSQL  = require('../');
-var nosql;
+const NoSQL  = require('../');
+let nosql;
 
-var setup = {
+const setup = {
     ram: function (done) {
         //console.log('running set_up_ram');
         nosql = new NoSQL('test', { store: 'ram' }, done);
