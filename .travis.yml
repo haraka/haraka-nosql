@@ -3,25 +3,15 @@ node_js:
 #   - "0.8"
 #   - "0.10"
 #   - "0.12"
-    - "4"
+#    - "4"
     - "6"
+    - "8"
 
 before_install:
 
 services:
     - travis
     - redis-server
-
-# these are required for building on node.js 4
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-env:
-  - "CXX=g++-4.8"
-# end: these are required for building on node.js 4
 
 script:
   - npm run lint
