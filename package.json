@@ -1,6 +1,6 @@
 {
   "name": "haraka-nosql",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Unified NoSQL API for RAM, SSC, or Redis",
   "author": {
     "name": "Matt Simerson",
@@ -41,7 +41,7 @@
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^2.0.1",
+    "redis": "^2.8.0",
     "strong-store-cluster": "^1.0.0"
   }
 }

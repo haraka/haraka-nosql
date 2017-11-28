@@ -14,16 +14,16 @@ const setup = {
         nosql = new NoSQL('test', { store: 'ssc' }, done);
     },
     redis: function (done) {
-        nosql = new NoSQL('test', { store: 'redis' }, function (err) {
+        nosql = new NoSQL('test', { store: 'redis' }, (err) => {
             if (err) { console.error(err); }
-            if (nosql && nosql.redis_pings) {
-                return done();
-            }
+            if (nosql && nosql.redis_pings) return done();
+
             console.log('failing back to memory for tests');
             nosql = new NoSQL('test', { store: 'ram' }, done);
         });
     }
 };
+
 
 ['ram','ssc','redis'].forEach(function (store) {
 
@@ -31,7 +31,12 @@ const setup = {
 
         before(setup[store]);
 
-        it('set', function (done) {
+        after((done) => {
+            nosql.shutdown()
+            done()
+        });
+
+        it('set', (done) => {
             nosql.set('foo', 'bar', function (err, result) {
                 // console.log(arguments);
                 assert.ifError(err);

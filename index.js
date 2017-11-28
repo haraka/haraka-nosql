@@ -201,7 +201,7 @@ NoSQL.prototype.redis_connect = function (done) {
         return;
     }
 
-    const redis  = require('redis');   // npm module
+    const redis = require('redis');   // npm module
 
     nosql.redis = redis.createClient(
         nosql.cfg.redis.port || 6379,
@@ -241,5 +241,18 @@ NoSQL.prototype.redis_ping = function (done) {
         done(null, true);
     });
 };
+
+NoSQL.prototype.shutdown = function () {
+
+    if (this.redis) {
+        // console.log('disconnecting redis')
+        this.redis.quit();
+    }
+
+    if (this._interval) {
+        // console.log('clearing _interval')
+        clearInterval(this._interval)
+    }
+}
 
 module.exports = NoSQL;
