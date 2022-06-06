@@ -6,14 +6,14 @@ const NoSQL  = require('../');
 let nosql;
 
 const setup = {
-    ram: function (done) {
+    ram (done) {
         //console.log('running set_up_ram');
         nosql = new NoSQL('test', { store: 'ram' }, done);
     },
-    ssc: function (done) {
+    ssc (done) {
         nosql = new NoSQL('test', { store: 'ssc' }, done);
     },
-    redis: function (done) {
+    redis (done) {
         nosql = new NoSQL('test', { store: 'redis' }, (err) => {
             if (err) { console.error(err); }
             if (nosql && nosql.redis_pings) return done();
@@ -27,7 +27,7 @@ const setup = {
 
 ['ram','ssc','redis'].forEach(function (store) {
 
-    describe('nosql ' + store, function () {
+    describe(`nosql ${  store}`, function () {
 
         before(setup[store]);
 
