@@ -147,7 +147,7 @@ In Strong Store Cluster, each caller gets its own collection.
 In Redis, get|del|incrby operations are mapped to their hash equivalents (hget, hdel, hincrby).
 
 
-[ci-img]: 
-[ci-url]: https://travis-ci.org/haraka/haraka-nosql
+[ci-img]: https://github.com/haraka/haraka-nosql/actions/workflows/ci.yml/badge.svg
+[ci-url]: https://github.com/haraka/haraka-nosql/actions/workflows/ci.yml
 [cov-img]: https://coveralls.io/repos/haraka/haraka-nosql/badge.png
 [cov-url]: https://coveralls.io/r/haraka/haraka-nosql
