@@ -1,7 +1,6 @@
 # haraka-nosql
 
 [![Build Status][ci-img]][ci-url]
-[![Dependencies][dep-img]][dep-url]
 [![Coverage Status][cov-img]][cov-url]
 
 
@@ -150,7 +149,5 @@ In Redis, get|del|incrby operations are mapped to their hash equivalents (hget, 
 
 [ci-img]: https://travis-ci.org/haraka/haraka-nosql.svg?branch=master
 [ci-url]: https://travis-ci.org/haraka/haraka-nosql
-[dep-img]: https://david-dm.org/haraka/haraka-nosql.svg
-[dep-url]: https://david-dm.org/haraka/haraka-nosql
 [cov-img]: https://coveralls.io/repos/haraka/haraka-nosql/badge.png
 [cov-url]: https://coveralls.io/r/haraka/haraka-nosql
