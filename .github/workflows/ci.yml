@@ -17,6 +17,11 @@ jobs:
   test:
     needs: [ lint, get-lts ]
     runs-on: ${{ matrix.os }}
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]

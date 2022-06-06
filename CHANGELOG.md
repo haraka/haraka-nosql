@@ -7,4 +7,4 @@
 - lint: prefer-template, object-shorthand
 
 
-[0.4.3]: https://github.com/haraka/haraka-nosql/releases/tag/0.4.3
+[0.4.4]: https://github.com/haraka/haraka-nosql/releases/tag/0.4.4
