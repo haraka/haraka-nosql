@@ -171,7 +171,7 @@ NoSQL.prototype.incrby = function (key, incr, done) {
 
 NoSQL.prototype.reset = function (done) {
     if (!done) done = this.default_cb;
-    console.log('clearing ' + this.store);
+    console.log(`clearing ${  this.store}`);
 
     switch (this.store) {
         case 'ram':
@@ -216,7 +216,7 @@ NoSQL.prototype.redis_connect = function (done) {
     nosql.redis.on('connect', function () {
         // console.log('redis connected');
         if (nosql.cfg.redis.dbid) {
-            console.log('redis db ' + nosql.cfg.redis.dbid + ' selected');
+            console.log(`redis db ${  nosql.cfg.redis.dbid  } selected`);
             nosql.redis.select(nosql.cfg.redis.dbid);
         }
         ranDone++;

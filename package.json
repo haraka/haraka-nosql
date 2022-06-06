@@ -1,6 +1,6 @@
 {
   "name": "haraka-nosql",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Unified NoSQL API for RAM, SSC, or Redis",
   "author": {
     "name": "Matt Simerson",
@@ -24,24 +24,24 @@
     }
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha",
-    "lint": "./node_modules/.bin/eslint *.js test/*.js",
-    "lintfix": "./node_modules/.bin/eslint --fix *.js test/*.js",
-    "cover": "NOSQL_COVERAGE=1 ./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter | ./node_modules/.bin/coveralls"
+    "test": "npx mocha",
+    "lint": "npx eslint *.js test",
+    "lintfix": "npx eslint --fix *.js test",
+    "cover": "NOSQL_COVERAGE=1 npx mocha --require blanket --reporter mocha-lcov-reporter | npx coveralls"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/haraka-nosql.git"
   },
   "devDependencies": {
-    "eslint": "*",
+    "eslint": ">=8",
     "eslint-plugin-haraka": "*",
-    "mocha": "*"
+    "mocha": ">=9"
   },
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^2.8.0",
+    "redis": "^3.1.2",
     "strong-store-cluster": "^1.0.0"
   }
 }
