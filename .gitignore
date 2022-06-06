@@ -30,3 +30,4 @@ node_modules
 dump.rdb
 Haraka
 haraka-update.sh
+package-lock.json
