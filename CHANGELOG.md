@@ -3,18 +3,8 @@
 
 ### [1.0.0] - 2022-08-29
 
-#### Added
-
-- 
-
-#### Fixed
-
-- 
-
-#### Changed
-
-- 
 - Bump redis from 3.1.2 to 4.3.0 (#31)
+- NOTE: above change very much NOT yet tested
 
 
 ### [0.4.5] - 2022-06-06
