@@ -28,23 +28,24 @@
   },
   "scripts": {
     "test": "npx mocha",
-    "lint": "npx eslint *.js test",
-    "lintfix": "npx eslint --fix *.js test",
-    "cover": "NOSQL_COVERAGE=1 npx mocha --require blanket --reporter mocha-lcov-reporter | npx coveralls"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "lint": "npx eslint@^9 *.js test",
+    "lint:fix": "npx eslint@^9 *.js test --fix",
+    "versions": "npx dependency-version-checker check",
+    "versions:fix": "npx dependency-version-checker update && npm run prettier:fix"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/haraka-nosql.git"
   },
   "devDependencies": {
-    "eslint": ">=8",
-    "eslint-plugin-haraka": "*",
-    "mocha": ">=9"
+    "@haraka/eslint-config": "2.0.2",
+    "mocha": "11.5.0"
   },
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^4.3.0",
-    "strong-store-cluster": "^1.0.0"
+    "redis": "^5.1.1",
+    "strong-store-cluster": "^1.0.1"
   }
 }

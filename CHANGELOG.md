@@ -1,26 +1,13 @@
 ### Unreleased
 
-
 ### [1.0.0] - 2025-06-02
-
-#### Added
-
-- 
-
-#### Fixed
-
-- 
-
-#### Changed
 
 - 
 - Bump redis from 3.1.2 to 4.3.0 (#31)
 
-
 ### [0.4.5] - 2022-06-06
 
 - doc(README): updated status badge URLs
-
 
 ### 0.4.4 - 2022-06-06
 
