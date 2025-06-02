@@ -228,7 +228,7 @@ NoSQL.prototype.redis_connect = function (done) {
   })
 
   this.redis.on('error', (error) => {
-    console.log('this redis error: ' + error.message);
+    console.log('this redis error: ' + error.message)
     if (done && !ranDone) {
       ranDone++
       done(error)
