@@ -3,7 +3,6 @@
 [![Build Status][ci-img]][ci-url]
 [![Coverage Status][cov-img]][cov-url]
 
-
 Store stuff in memory-backed objects, smartly.
 
 ## Usage
@@ -26,7 +25,7 @@ Exports the following functions:
         // do fun stuff with result
     });
 
-You're confident it'll work out?  Skip the callback, it's optional. For all of these methods.
+You're confident it'll work out? Skip the callback, it's optional. For all of these methods.
 
     nosql.set('foo', 'bar');  // going commando
 
@@ -54,38 +53,36 @@ You're confident it'll work out?  Skip the callback, it's optional. For all of t
     nosql.incrby('my_counter', 2);  // breezy!
     // now my_counter == 3   (increment 1 with 2 and math!)
 
-
 ## reset
 
     nosql.reset();
 
     // all your keys are belong to /dev/null
 
-
 # RAM? That ain't workin'
 
 ## Pros
 
-* simple
-* no dependencies
+- simple
+- no dependencies
 
 ## Cons
 
-* Data disappears when Haraka is restarted.
-* Not shared across hosts
-* With [cluster](https://nodejs.org/api/cluster.html), worker processes share no data. Therefore, each worker process has a partial (incomplete) view of the state data.
+- Data disappears when Haraka is restarted.
+- Not shared across hosts
+- With [cluster](https://nodejs.org/api/cluster.html), worker processes share no data. Therefore, each worker process has a partial (incomplete) view of the state data.
 
 # Cluster RAM
 
-* When running with cluster, `nosql` attempts to load [strong-store-cluster](http://apidocs.strongloop.com/strong-store-cluster/), which stores data in the master worker.
+- When running with cluster, `nosql` attempts to load [strong-store-cluster](http://apidocs.strongloop.com/strong-store-cluster/), which stores data in the master worker.
 
 ## Pros
 
-* All Haraka processes share a single RAM backed data store.
+- All Haraka processes share a single RAM backed data store.
 
 ## Cons
 
-* There's no "reset" operation. Instead, keys expire after 10 minutes (edit
+- There's no "reset" operation. Instead, keys expire after 10 minutes (edit
   `config/nosql.ini [cluster]expire` to alter. This is great for features such
   as concurrency or brute-force auth tracking.
 
@@ -93,15 +90,14 @@ You're confident it'll work out?  Skip the callback, it's optional. For all of t
 
 ## Pros
 
-* disk backed RAM storage
-* same view across Harka master & worker processes
-* persistence across Haraka & server reboots
-* network service, can be shared by many hosts
+- disk backed RAM storage
+- same view across Harka master & worker processes
+- persistence across Haraka & server reboots
+- network service, can be shared by many hosts
 
 ## Enable Redis
 
     sed -i.bak -e 's/; backend=redis/backend=redis/' /my/haraka/config/nosql.ini
-
 
 ### Redis isn't running on localhost!
 
@@ -124,7 +120,6 @@ When Redis is configured, the redis connection is exported as `nosql.redis`. Use
 
 Refer to the excellent [Redis command docs](http://redis.io/commands)
 
-
 # Other
 
 ## What about key collisions?
@@ -145,7 +140,6 @@ Collisions are only possible within your namespace. Each caller of `nosql` autom
 In Strong Store Cluster, each caller gets its own collection.
 
 In Redis, get|del|incrby operations are mapped to their hash equivalents (hget, hdel, hincrby).
-
 
 [ci-img]: https://github.com/haraka/haraka-nosql/actions/workflows/ci.yml/badge.svg
 [ci-url]: https://github.com/haraka/haraka-nosql/actions/workflows/ci.yml

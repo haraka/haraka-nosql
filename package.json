@@ -1,11 +1,14 @@
 {
   "name": "haraka-nosql",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "Unified NoSQL API for RAM, SSC, or Redis",
   "author": {
     "name": "Matt Simerson",
     "url": "https://github.com/haraka/haraka-nosql"
   },
+  "files": [
+    "CHANGELOG.md"
+  ],
   "main": "index.js",
   "homepage": "https://github.com/haraka/haraka-nosql",
   "keywords": [
@@ -24,24 +27,31 @@
     }
   },
   "scripts": {
-    "test": "npx mocha",
-    "lint": "npx eslint *.js test",
-    "lintfix": "npx eslint --fix *.js test",
-    "cover": "NOSQL_COVERAGE=1 npx mocha --require blanket --reporter mocha-lcov-reporter | npx coveralls"
+    "test": "npx mocha --exit",
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "lint": "npx eslint@^9 *.js test",
+    "lint:fix": "npx eslint@^9 *.js test --fix",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npx prettier . --write --log-level=warn",
+    "versions": "npx dependency-version-checker check",
+    "versions:fix": "npx dependency-version-checker update && npm run prettier:fix"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/haraka-nosql.git"
   },
   "devDependencies": {
-    "eslint": ">=8",
-    "eslint-plugin-haraka": "*",
-    "mocha": ">=9"
+    "@haraka/eslint-config": "2.0.2",
+    "mocha": "11.5.0"
   },
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^4.3.0",
-    "strong-store-cluster": "^1.0.0"
+    "redis": "^5.1.1",
+    "strong-store-cluster": "^1.0.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
   }
 }
