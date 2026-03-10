@@ -1,6 +1,6 @@
 'use strict'
 
-const assert = require('assert')
+const assert = require('node:assert')
 
 const NoSQL = require('../')
 let nosql
@@ -30,9 +30,8 @@ const setup = {
   describe(`nosql ${store}`, function () {
     before(setup[store])
 
-    after((done) => {
+    after(() => {
       nosql.shutdown()
-      done()
     })
 
     it('set', (done) => {
