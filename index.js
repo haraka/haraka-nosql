@@ -21,7 +21,7 @@ function NoSQL(collection, options, done) {
   switch (this.store) {
     case 'ram':
       if (this.expire) {
-        this._interval = setInterval(this.reset, this.expire * 1000)
+        this._interval = setInterval(() => this.reset(), this.expire * 1000)
       }
       if (done) done()
       break
@@ -51,7 +51,7 @@ function NoSQL(collection, options, done) {
         dbid: 0,
       }
       if (this.expire) {
-        this._interval = setInterval(this.reset, this.expire * 1000)
+        this._interval = setInterval(() => this.reset(), this.expire * 1000)
       }
       this.redis_connect(done || this.default_cb)
       break
@@ -77,9 +77,10 @@ NoSQL.prototype.get = function (key, done) {
       break
 
     case 'redis':
-      this.redis.hGet(this.collection, key).then((val) => {
-        done(null, val)
-      })
+      this.redis
+        .hGet(this.collection, key)
+        .then((val) => done(null, val))
+        .catch(done)
       break
   }
 }
@@ -109,9 +110,10 @@ NoSQL.prototype.set = function (key, val, done) {
       break
     }
     case 'redis':
-      this.redis.hSet(this.collection, key, val).then(() => {
-        done(null, true)
-      })
+      this.redis
+        .hSet(this.collection, key, val)
+        .then(() => done(null, true))
+        .catch(done)
       break
   }
 }
@@ -138,9 +140,10 @@ NoSQL.prototype.del = function (key, done) {
       break
 
     case 'redis':
-      this.redis.hDel(this.collection, key).then(() => {
-        done(null, true)
-      })
+      this.redis
+        .hDel(this.collection, key)
+        .then(() => done(null, true))
+        .catch(done)
       break
   }
 }
@@ -177,9 +180,10 @@ NoSQL.prototype.incrby = function (key, incr, done) {
       break
 
     case 'redis':
-      this.redis.hIncrBy(this.collection, key, incr).then((val) => {
-        done(null, val)
-      })
+      this.redis
+        .hIncrBy(this.collection, key, incr)
+        .then((val) => done(null, val))
+        .catch(done)
       break
   }
 }
@@ -200,9 +204,10 @@ NoSQL.prototype.reset = function (done) {
       break
 
     case 'redis':
-      this.redis.del(this.collection).then(() => {
-        done(null, 1)
-      })
+      this.redis
+        .del(this.collection)
+        .then(() => done(null, 1))
+        .catch(done)
       break
   }
 }
@@ -235,17 +240,26 @@ NoSQL.prototype.redis_connect = function (done) {
     }
   })
 
-  this.redis.on('connect', () => {
-    // console.log('redis connected');
-    if (this.cfg.redis.dbid) {
-      console.log(`redis db ${this.cfg.redis.dbid} selected`)
-      this.redis.select(this.cfg.redis.dbid)
-    }
-  })
-
-  this.redis.connect().then(() => {
-    done(null, true)
-  })
+  // chain SELECT before signaling readiness so early callers cannot
+  // race against the database switch.
+  this.redis
+    .connect()
+    .then(async () => {
+      if (this.cfg.redis.dbid) {
+        console.log(`redis db ${this.cfg.redis.dbid} selected`)
+        await this.redis.select(this.cfg.redis.dbid)
+      }
+      if (!ranDone) {
+        ranDone++
+        done(null, true)
+      }
+    })
+    .catch((err) => {
+      if (!ranDone) {
+        ranDone++
+        done(err)
+      }
+    })
 }
 
 NoSQL.prototype.shutdown = function () {
