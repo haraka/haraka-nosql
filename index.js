@@ -21,9 +21,6 @@ function NoSQL(collection, options, done) {
   switch (this.store) {
     case 'ram':
       if (this.expire) {
-        // C1: arrow wrapper so the timer callback runs with the NoSQL
-        // instance as `this`. Without it, reset() ran with no/Timer context
-        // and the ram cache never cleared on expiry.
         this._interval = setInterval(() => this.reset(), this.expire * 1000)
       }
       if (done) done()
@@ -54,7 +51,6 @@ function NoSQL(collection, options, done) {
         dbid: 0,
       }
       if (this.expire) {
-        // C1: arrow wrapper — see ram-case comment above.
         this._interval = setInterval(() => this.reset(), this.expire * 1000)
       }
       this.redis_connect(done || this.default_cb)
@@ -244,9 +240,8 @@ NoSQL.prototype.redis_connect = function (done) {
     }
   })
 
-  // C2: chain SELECT before signaling readiness so early callers cannot
-  // race against the database switch. Previously the select() promise was
-  // fire-and-forget inside the 'connect' event listener.
+  // chain SELECT before signaling readiness so early callers cannot
+  // race against the database switch.
   this.redis
     .connect()
     .then(async () => {
