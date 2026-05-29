@@ -1,19 +1,20 @@
 'use strict'
 
 const assert = require('node:assert')
+const { after, before, describe, it } = require('node:test')
 
 const NoSQL = require('../')
 let nosql
 
 const setup = {
-  ram(done) {
+  ram: (t, done) => {
     //console.log('running set_up_ram');
     nosql = new NoSQL('test', { store: 'ram' }, done)
   },
-  ssc(done) {
+  ssc: (t, done) => {
     nosql = new NoSQL('test', { store: 'ssc' }, done)
   },
-  redis(done) {
+  redis: (t, done) => {
     nosql = new NoSQL('test', { store: 'redis' }, (err) => {
       if (err) {
         console.error(err)
@@ -26,15 +27,15 @@ const setup = {
   },
 }
 
-;['ram', 'ssc', 'redis'].forEach(function (store) {
-  describe(`nosql ${store}`, function () {
+;['ram', 'ssc', 'redis'].forEach((store) => {
+  describe(`nosql ${store}`, () => {
     before(setup[store])
 
     after(() => {
       nosql.shutdown()
     })
 
-    it('set', (done) => {
+    it('set', (t, done) => {
       nosql.set('foo', 'bar', function (err, result) {
         // console.log(arguments);
         assert.ifError(err)
@@ -43,7 +44,7 @@ const setup = {
       })
     })
 
-    it('get', function (done) {
+    it('get', (t, done) => {
       nosql.set('foo', 'bar', function (err, result) {
         assert.ifError(err)
         assert.ok(result < 2)
@@ -56,7 +57,7 @@ const setup = {
       })
     })
 
-    it('del', function (done) {
+    it('del', (t, done) => {
       nosql.del('foo', function (err, result) {
         // console.log(arguments);
         assert.ifError(err)
@@ -65,7 +66,7 @@ const setup = {
       })
     })
 
-    it('get is null after del', function (done) {
+    it('get is null after del', (t, done) => {
       nosql.del('foo', function (err, result) {
         assert.ifError(err)
 
@@ -77,7 +78,7 @@ const setup = {
       })
     })
 
-    it('incr, init to incr val', function (done) {
+    it('incr, init to incr val', (t, done) => {
       nosql.incrby('foo', 1, function (err, result) {
         // console.log(arguments);
         assert.ifError(err)
@@ -86,7 +87,7 @@ const setup = {
       })
     })
 
-    it('incr, increments', function (done) {
+    it('incr, increments', (t, done) => {
       nosql.set('foo', 1, function (err, res1) {
         assert.ifError(err)
 
@@ -103,7 +104,7 @@ const setup = {
       })
     })
 
-    it('incr, decrements', function (done) {
+    it('incr, decrements', (t, done) => {
       nosql.set('foo', 1, function (err) {
         assert.ifError(err)
 
@@ -120,7 +121,7 @@ const setup = {
       })
     })
 
-    it('reset', function (done) {
+    it('reset', (t, done) => {
       nosql.reset(function (err, result) {
         // console.log(arguments);
         assert.ifError(err)
@@ -131,7 +132,7 @@ const setup = {
 
     if (store !== 'ssc') {
       // Strong Store Cluster doesn't have a reset option
-      it('get is empty after reset', function (done) {
+      it('get is empty after reset', (t, done) => {
         nosql.set('foo', 'bar', function (err, res1) {
           nosql.reset(function (err2, res2) {
             nosql.get('foo', function (err3, res3) {

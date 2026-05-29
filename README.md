@@ -1,7 +1,6 @@
 # haraka-nosql
 
-[![Build Status][ci-img]][ci-url]
-[![Coverage Status][cov-img]][cov-url]
+[![Test][ci-img]][ci-url] [![Cover][cov-img]][cov-url] [![Qlty][qlty-img]][qlty-url]
 
 Store stuff in memory-backed objects, smartly.
 
@@ -141,7 +140,11 @@ In Strong Store Cluster, each caller gets its own collection.
 
 In Redis, get|del|incrby operations are mapped to their hash equivalents (hget, hdel, hincrby).
 
+<!-- leave these buried at the bottom of the document -->
+
 [ci-img]: https://github.com/haraka/haraka-nosql/actions/workflows/ci.yml/badge.svg
 [ci-url]: https://github.com/haraka/haraka-nosql/actions/workflows/ci.yml
-[cov-img]: https://coveralls.io/repos/haraka/haraka-nosql/badge.png
-[cov-url]: https://coveralls.io/r/haraka/haraka-nosql
+[cov-img]: https://codecov.io/github/haraka/haraka-nosql/coverage.svg
+[cov-url]: https://codecov.io/github/haraka/haraka-nosql
+[qlty-img]: https://qlty.sh/gh/haraka/projects/haraka-nosql/maintainability.svg
+[qlty-url]: https://qlty.sh/gh/haraka/projects/haraka-nosql

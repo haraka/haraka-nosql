@@ -27,12 +27,14 @@
     }
   },
   "scripts": {
-    "test": "npx mocha --exit",
+    "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
     "format": "npm run prettier:fix && npm run lint:fix",
     "lint": "npx eslint *.js test",
     "lint:fix": "npx eslint *.js test --fix",
     "prettier": "npx prettier . --check",
     "prettier:fix": "npx prettier . --write --log-level=warn",
+    "qlty": "qlty smells --all",
+    "test": "node --test --test-force-exit test/*.js",
     "versions": "npx dependency-version-checker check",
     "versions:fix": "npx dependency-version-checker update && npm run prettier:fix"
   },
@@ -41,13 +43,13 @@
     "url": "https://github.com/haraka/haraka-nosql.git"
   },
   "devDependencies": {
-    "@haraka/eslint-config": "^2.0.2",
-    "mocha": "^11.5.0"
+    "@haraka/eslint-config": "^3.0.0",
+    "mocha": "^11.7.6"
   },
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^5.1.1",
+    "redis": "^6.0.0",
     "strong-store-cluster": "^1.0.1"
   },
   "prettier": {

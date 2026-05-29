@@ -1,0 +1,12 @@
+exclude_patterns = [
+  ".release/**",
+  "test/**",
+  "eslint.config.mjs",
+  "node_modules/**",
+]
+
+[smells.file_complexity]
+threshold = 300
+
+[smells.return_statements]
+enabled = false
