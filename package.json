@@ -1,6 +1,6 @@
 {
   "name": "haraka-nosql",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Unified NoSQL API for RAM, SSC, or Redis",
   "author": {
     "name": "Matt Simerson",
@@ -35,8 +35,9 @@
     "prettier:fix": "npx prettier . --write --log-level=warn",
     "qlty": "qlty smells --all",
     "test": "node --test --test-force-exit test/*.js",
-    "versions": "npx dependency-version-checker check",
-    "versions:fix": "npx dependency-version-checker update && npm run prettier:fix"
+    "versions": "npx npm-dep-mgr check",
+    "versions:fix": "npx npm-dep-mgr update",
+    "test:coverage": "npx c8 --reporter=text --reporter=text-summary npm test"
   },
   "repository": {
     "type": "git",

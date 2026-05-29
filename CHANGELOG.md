@@ -1,6 +1,17 @@
+# Changelog
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/).
+
 ### Unreleased
 
-- test: refactored against test-fixtures 1.7.0
+### [0.5.1] - 2026-05-29
+
+- fix: expiry timer now runs with the NoSQL instance as `this`
+- fix: chain `SELECT` before signaling readiness
+- fix: `.catch()` on every Redis promise
+- doc: README uses correct `store` option (was `storage`)
+- test: refactored against test-fixtures 1.7.0 (#39)
+- remove done callbacks in tests (#38)
 
 ### [0.5.0] - 2025-06-02
 
@@ -25,3 +36,7 @@
 [0.4.4]: https://github.com/haraka/haraka-nosql/releases/tag/0.4.4
 [0.4.5]: https://github.com/haraka/haraka-nosql/releases/tag/0.4.5
 [0.5.0]: https://github.com/haraka/haraka-nosql/releases/tag/0.5.0
+[0.5.1]: https://github.com/haraka/haraka-nosql/releases/tag/v0.5.1
+[0.4.0]: https://github.com/haraka/haraka-nosql/releases/tag/0.4.0
+[0.3.0]: https://github.com/haraka/haraka-nosql/releases/tag/v0.3.0
+[0.4.1]: https://github.com/haraka/haraka-nosql/releases/tag/v0.4.1

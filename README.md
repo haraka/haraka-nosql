@@ -6,57 +6,77 @@ Store stuff in memory-backed objects, smartly.
 
 ## Usage
 
-    var NoSQL = require('haraka-nosql');
-    var nosql = new NoSQL('myindex', {
-        storage: 'redis',  // or 'ram' or 'ssc'
-        expire: 10,        // minutes
-    });
+```js
+const NoSQL = require('haraka-nosql')
+const nosql = new NoSQL('myindex', {
+  store: 'redis', // or 'ram' or 'ssc'
+  expire: 10, // minutes
+})
+```
 
 Exports the following functions:
 
 ## set
 
-    nosql.set('foo', 'bar', function (err, result) {
-        if (err) {
-            // error handling code
-            return;
-        }
-        // do fun stuff with result
-    });
+```js
+nosql.set('foo', 'bar', function (err, result) {
+  if (err) {
+    // error handling code
+    return
+  }
+  // do fun stuff with result
+})
+```
 
 You're confident it'll work out? Skip the callback, it's optional. For all of these methods.
 
-    nosql.set('foo', 'bar');  // going commando
+```js
+nosql.set('foo', 'bar') // going commando
+```
 
 ## get
 
-    nosql.get('foo', function (err, result) {
-        if (err) { return; }
-        // result == 'bar'  (because that's what we set it to)
-    });
+```js
+nosql.get('foo', function (err, result) {
+  if (err) {
+    return
+  }
+  // result == 'bar'  (because that's what we set it to)
+})
+```
 
 ## del
 
-    nosql.del('foo', function (err, result) {
-        if (err) { return; }
-        // result == 1   (# of objects keys deleted)
-    });
+```js
+nosql.del('foo', function (err, result) {
+  if (err) {
+    return
+  }
+  // result == 1   (# of objects keys deleted)
+})
+```
 
 ## incrby
 
-    nosql.incrby('my_counter', 1, function (err, result) {
-        if (err) { return; }
-        // result == 1  (it was undef, now it's initialized to 1)
-    });
+```js
+nosql.incrby('my_counter', 1, function (err, result) {
+  if (err) {
+    return
+  }
+  // result == 1  (it was undef, now it's initialized to 1)
+})
 
-    nosql.incrby('my_counter', 2);  // breezy!
-    // now my_counter == 3   (increment 1 with 2 and math!)
+nosql.incrby('my_counter', 2) // breezy!
+// now my_counter == 3   (increment 1 with 2 and math!)
+```
 
 ## reset
 
-    nosql.reset();
+```js
+nosql.reset()
 
-    // all your keys are belong to /dev/null
+// all your keys are belong to /dev/null
+```
 
 # RAM? That ain't workin'
 
@@ -81,9 +101,9 @@ You're confident it'll work out? Skip the callback, it's optional. For all of th
 
 ## Cons
 
-- There's no "reset" operation. Instead, keys expire after 10 minutes (edit
-  `config/nosql.ini [cluster]expire` to alter. This is great for features such
-  as concurrency or brute-force auth tracking.
+- There's no "reset" operation. Instead, keys expire after the configured
+  interval (pass `expire` minutes to the constructor; default 10). This is
+  great for features such as concurrency or brute-force auth tracking.
 
 # Redis
 
@@ -96,26 +116,32 @@ You're confident it'll work out? Skip the callback, it's optional. For all of th
 
 ## Enable Redis
 
-    sed -i.bak -e 's/; backend=redis/backend=redis/' /my/haraka/config/nosql.ini
+Pass `store: 'redis'` and the connection details to the constructor:
 
-### Redis isn't running on localhost!
+```js
+const nosql = new NoSQL('myindex', {
+  store: 'redis',
+  redis: { host: 'localhost', port: 6379, dbid: 0 },
+})
+```
 
-    $EDITOR config/nosql.ini
-
-Edit the settings in the [redis] section.
+`haraka-nosql` is a library, not a Haraka plugin. Plugins that build on top of it (e.g.
+greylist, karma, limit) are responsible for loading their own config and passing the relevant options through.
 
 ### I need more Redis features
 
 When Redis is configured, the redis connection is exported as `nosql.redis`. Use it like so:
 
-    var nosql = require('haraka-nosql');
-    var redis = nosql.redis;
+```js
+const nosql = require('haraka-nosql')
+const redis = nosql.redis
 
-    redis.multi()
-         .hget('something')
-         .get('else')
-         .exec(function (err, res) {
-         });
+redis
+  .multi()
+  .hget('something')
+  .get('else')
+  .exec(function (err, res) {})
+```
 
 Refer to the excellent [Redis command docs](http://redis.io/commands)
 
@@ -125,6 +151,7 @@ Refer to the excellent [Redis command docs](http://redis.io/commands)
 
 Collisions are only possible within your namespace. Each caller of `nosql` automatically gets its own namespace. In RAM, each namespace is a JS object, rather like this:
 
+```js
     {
         karma: {
             key: val,
@@ -135,6 +162,7 @@ Collisions are only possible within your namespace. Each caller of `nosql` autom
             key2: val2,
         }
     }
+```
 
 In Strong Store Cluster, each caller gets its own collection.
 
