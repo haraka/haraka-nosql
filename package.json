@@ -43,13 +43,13 @@
     "url": "https://github.com/haraka/haraka-nosql.git"
   },
   "devDependencies": {
-    "@haraka/eslint-config": "^2.0.4",
-    "mocha": "^11.7.5"
+    "@haraka/eslint-config": "^3.0.0",
+    "mocha": "^11.7.6"
   },
   "license": "MIT",
   "dependencies": {},
   "optionalDependencies": {
-    "redis": "^5.11.0",
+    "redis": "^6.0.0",
     "strong-store-cluster": "^1.0.1"
   },
   "prettier": {
