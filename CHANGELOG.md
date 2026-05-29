@@ -1,5 +1,7 @@
 ### Unreleased
 
+- test: refactored against test-fixtures 1.7.0
+
 ### [0.5.0] - 2025-06-02
 
 - update redis syntax for compat with redis 4+
